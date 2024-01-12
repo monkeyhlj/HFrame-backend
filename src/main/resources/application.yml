@@ -1,0 +1,7 @@
+# 配置文件加密 key 生产环境中可通过环境变量、命令行等形式进行设置
+jasypt:
+  encryptor:
+    password: hframe
+
+server:
+  port: 8080  # 可修改
