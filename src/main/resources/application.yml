@@ -4,4 +4,49 @@ jasypt:
     password: hframe
 
 server:
-  port: 8080  # 可修改
+  port: 8081  # 可修改
+
+spring:
+  lifecycle:
+    # 配置优雅停机后的缓冲器 最大等待时间
+    timeout-per-shutdown-phase: 10S
+  # 数据源
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/hframe?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: root
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    # Druid StatViewServlet配置
+    druid:
+      stat-view-servlet:
+        # 默认true 内置监控页面首页/druid/index.html
+        enabled: true
+        url-pattern: /druid/*
+        # 允许清空统计数据
+        reset-enable: true
+        login-username: root
+        login-password: root
+        # IP白名单 多个逗号分隔
+        allow:
+        # IP黑名单
+        deny:
+      filter:
+        stat:
+          # 开启监控sql
+          enabled: true
+          # 显示并标注慢sql 默认当超过3秒显示
+          log-slow-sql: true
+          slow-sql-millis: 3000
+          merge-sql: true
+        # 防SQL注入过滤
+        wall:
+          config:
+            # 允许多条sql同时执行
+            multi-statement-allow: true
+  jpa:
+    # 显示sql
+    show-sql: true
+    # 自动生成表结构 关闭设为none
+    hibernate:
+      ddl-auto: update
